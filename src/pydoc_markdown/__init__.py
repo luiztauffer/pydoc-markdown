@@ -41,6 +41,7 @@ from pydoc_markdown.contrib.loaders.python import PythonLoader
 from pydoc_markdown.contrib.processors.crossref import CrossrefProcessor
 from pydoc_markdown.contrib.processors.filter import FilterProcessor
 from pydoc_markdown.contrib.processors.smart import SmartProcessor
+from pydoc_markdown.contrib.processors.numpy import NumpyProcessor
 from pydoc_markdown.contrib.renderers.markdown import MarkdownRenderer
 from pydoc_markdown.interfaces import Builder, Context, Loader, Processor, Renderer, Resolver
 from pydoc_markdown.util import ytemplate
@@ -70,7 +71,7 @@ class PydocMarkdown:
     #: A list of processor implementations that modify #docspec.Module#s. Defaults
     #: to #FilterProcessor, #SmartProcessor and #CrossrefProcessor.
     processors: t.List[Processor] = dataclasses.field(
-        default_factory=lambda: [FilterProcessor(), SmartProcessor(), CrossrefProcessor()]
+        default_factory=lambda: [FilterProcessor(), SmartProcessor(), CrossrefProcessor(), NumpyProcessor()]
     )
 
     #: A renderer for #docspec.Module#s. Defaults to #MarkdownRenderer.

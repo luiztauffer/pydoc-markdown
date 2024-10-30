@@ -218,7 +218,8 @@ class NumpyProcessor(Processor):
     @staticmethod
     def _parse_notes_and_references(section: str, contents: list[str]) -> list[str]:
         content_string = "\n".join(contents)
-        citations = re.compile("(\.\. )?\[(?P<ref_id>\w+)][_ ]?")
+        citations = re.compile(r"(\.\. )?\[(?P<ref_id>\w+)][_ ]?")
+
 
         replacements = {"Notes": "<sup>{ref_id}</sup>", "References": "{ref_id}. "}
 
@@ -234,7 +235,7 @@ class NumpyProcessor(Processor):
         doctests = re.compile(r"(>>>(?:.+(?:\r?\n|$))+)", flags=re.MULTILINE)
         return [
             "\n**Examples**\n",
-            *doctests.sub("```python\n\g<0>\n```", "\n".join(contents)).splitlines(),
+            *doctests.sub(r"```python\n\g<0>\n```", "\n".join(contents)).splitlines(),
         ]
 
     @staticmethod
