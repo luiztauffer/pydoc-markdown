@@ -75,10 +75,20 @@ class DocusaurusRenderer(Renderer):
     def init(self, context: Context) -> None:
         self.markdown.init(context)
 
-    def render(self, modules: t.List[docspec.Module]) -> None:
+    def render(
+        self,
+        modules: t.List[docspec.Module],
+        render_imported_modules: bool = False
+    ) -> None:
         module_tree: t.Dict[str, t.Any] = {"children": {}, "edges": []}
         output_path = Path(self.docs_base_path) / self.relative_output_path
         for module in modules:
+            if not render_imported_modules:
+                module.members = list(
+                    filter(
+                        lambda m: not isinstance(m, docspec.Indirection), module.members
+                    )
+                )
             filepath = output_path
 
             module_parts = module.name.split(".")
