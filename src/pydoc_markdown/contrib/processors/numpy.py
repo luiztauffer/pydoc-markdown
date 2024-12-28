@@ -102,7 +102,7 @@ class NumpyProcessor(Processor):
 
     _SECTION_MAP = {
         "Summary": ["Summary", "Extended Summary"],
-        "Arguments": ["Parameters", "Other Parameters"],
+        "Parameters": ["Parameters", "Other Parameters"],
         "Returns": ["Returns"],
         "Yields": ["Yields"],
         "Receives": ["Receives"],
@@ -159,6 +159,7 @@ class NumpyProcessor(Processor):
             "Summary",
             *[next(key for key, value in active_sections.items() if keyword in value) for keyword in keyword_matches],
         ]
+        print(section_order)
 
         # Finally, we sort active_sections according to the section order we just determined
         for section, keywords in sorted(active_sections.items(), key=lambda x: section_order.index(x[0])):
